@@ -3,21 +3,23 @@ package ch.dlm.td18;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-import javax.swing.Action;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
-public class MyMenu extends JMenuBar
+public class MyMenu extends JMenuBar implements Observable
 {
 
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
+    
+    ArrayList<Observer> observersList = new ArrayList<>(); 
 
     MyMenu(){        
         //JMenu
@@ -50,7 +52,8 @@ public class MyMenu extends JMenuBar
             public void actionPerformed(ActionEvent e)
             {
                 System.out.println("Pas encore implémenté");
-                openThisFkingDialog();
+                updateObserver();
+                //openThisFkingDialog();
             }
         });
         open.setAccelerator(KeyStroke.getKeyStroke('O', Toolkit.getDefaultToolkit ().getMenuShortcutKeyMask()));
@@ -90,5 +93,24 @@ public class MyMenu extends JMenuBar
       else {
         System.out.println("No Selection ");
         }
+    }
+
+    @Override
+    public void addObserver(Observer observer)
+    {
+        // TODO Auto-generated method stub
+        observersList.add(observer);
+        
+    }
+
+    @Override
+    public void updateObserver()
+    {
+        // TODO Auto-generated method stub
+        for(Observer obs : observersList)
+        {
+            obs.selectFolder();
+        }
+        
     }
 }

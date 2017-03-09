@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
-public class MyJFrame extends JFrame
+public class MyJFrame extends JFrame implements Observer
 {
     /**
      * 
@@ -19,20 +19,22 @@ public class MyJFrame extends JFrame
         setLocationRelativeTo(null); //positionne la fenêtre au centre
         
         MyMenu myMenu = new MyMenu();
-        //MyPanel myPanel = new MyPanel();
-        //myAnimatedPanel = new MyAnimatedPanel();
+        SelectZone selectZone = new SelectZone();
         
         this.setJMenuBar(myMenu);
+        
         this.setLayout(new BorderLayout());
-        //this.add(myMenu,BorderLayout.NORTH);
-        //this.add(myButton,BorderLayout.SOUTH);
-        //this.add(myAnimatedPanel, BorderLayout.CENTER);
-        //this.add(myPanel, BorderLayout.NORTH);
-        
-        
-        //setContentPane(myMenu);
+        this.add(selectZone,BorderLayout.NORTH);
         
         setVisible(true);
+        myMenu.addObserver(this); 
+        selectZone.addObserver(this); 
     }
 
+    @Override
+    public void selectFolder()
+    {
+        // TODO Auto-generated method stub
+        System.out.println("Je suis ici !");
+    }
 }
