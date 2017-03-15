@@ -4,4 +4,5 @@ public interface Observable
 {
     void addObserver(Observer observer);
     void updateObserver();
+    void updateObserver(int i);
 }

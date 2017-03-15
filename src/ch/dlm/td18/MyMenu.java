@@ -1,11 +1,16 @@
 package ch.dlm.td18;
 
+/** 
+ * @author Marc Friedli
+ * 
+ * JMenuBar. Possède 2 menus : file et about et 3 actions : open, quit et about
+ * Observable pour communiquer avec MyJFrame lorsqu'on lance l'action open
+ */
+
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
-import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -33,6 +38,7 @@ public class MyMenu extends JMenuBar implements Observable
         JMenuItem quit = new JMenuItem("Quit");
         JMenuItem help = new JMenuItem("About");
         
+        //Action
         quit.addActionListener(new ActionListener()
         {
             
@@ -43,6 +49,7 @@ public class MyMenu extends JMenuBar implements Observable
                 System.exit(0);
             }
         });
+        //Raccourci clavier
         quit.setAccelerator(KeyStroke.getKeyStroke('Q', Toolkit.getDefaultToolkit ().getMenuShortcutKeyMask()));  
         
         open.addActionListener(new ActionListener()
@@ -51,9 +58,7 @@ public class MyMenu extends JMenuBar implements Observable
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                System.out.println("Pas encore implémenté");
                 updateObserver();
-                //openThisFkingDialog();
             }
         });
         open.setAccelerator(KeyStroke.getKeyStroke('O', Toolkit.getDefaultToolkit ().getMenuShortcutKeyMask()));
@@ -70,29 +75,14 @@ public class MyMenu extends JMenuBar implements Observable
         });
         help.setAccelerator(KeyStroke.getKeyStroke('H', Toolkit.getDefaultToolkit ().getMenuShortcutKeyMask()));
         
+        //Ajout des actions aux menus
         file.add(open);
         file.add(quit);
         about.add(help);
         
+        //Ajouts des menus au JmenuBar
         this.add(file);
         this.add(about);
-    }
-    
-    private void openThisFkingDialog(){
-    JFileChooser jFileChooser = new JFileChooser();
-    jFileChooser.setCurrentDirectory(new java.io.File("."));
-    jFileChooser.setDialogTitle("Yolooooo");
-    jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-    
-    if (jFileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) { 
-        System.out.println("getCurrentDirectory(): " 
-           +  jFileChooser.getCurrentDirectory());
-        System.out.println("getSelectedFile() : " 
-           +  jFileChooser.getSelectedFile());
-        }
-      else {
-        System.out.println("No Selection ");
-        }
     }
 
     @Override
@@ -111,6 +101,13 @@ public class MyMenu extends JMenuBar implements Observable
         {
             obs.selectFolder();
         }
+        
+    }
+
+    @Override
+    public void updateObserver(int i)
+    {
+        // TODO Auto-generated method stub
         
     }
 }
